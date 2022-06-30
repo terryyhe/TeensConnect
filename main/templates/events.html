@@ -3,5 +3,34 @@
 
 {% block content %}
 <h1> Events </h1>
-<h5>  {{ cal|safe }} </h5>
+{% for event in events %}
+<div class="shadow p-4 mb-5 bg-body rounded">
+  <div class="card">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">{{ event }}</h5>
+    {% if event.venue.venue_image %}
+      <img src="{{ event.venue.venue_image.url }}" class="img-fluid rounded-start" style="width:200px; height:200px; float:right" alt="...">
+    {% endif %}
+    <p class="card-text">{{ event.event_date }}</p>
+    <p class="card-text">{{ event.venue }}</p>
+    {% if event.email_address %}
+      <p class="card-text">{{ event.venue.email_address }}</p>
+    {% endif %}
+    {% if event.manager %}
+      <p class="card-text">{{ event.manager }}</p>
+    {% endif %}
+    {% if event.description %}
+      <p class="card-text">{{ event.description }}</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <a href="{% url 'update_event' event.id %}" class="btn btn-primary">Update</a>
+      <a href="{% url 'delete_event' event.id %}" class="btn btn-warning" >Delete</a>
+    {% endif %}
+  </div>
+</div></div>
+{% endfor %}
+
 {% endblock %}

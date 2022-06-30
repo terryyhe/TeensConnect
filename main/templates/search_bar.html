@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <center>
+        {% if searched %}
+        <h1>You searched for {{ searched }}</h1>
+            {% if events %}
+                <h2>Events</h2>
+                {% for event in events %}
+                    {{ event }}
+                {% endfor %}
+            {% endif %}
+            {% if locations %}
+                <h2>Locations</h2>
+                {% for location in locations %}
+                    {{ location }}
+                {% endfor %}
+            {% endif %}
+        {% else %}
+        <h1>Hey! You forgot to search</h1>
+        {% endif %}
+    </center>
+{% endblock %}

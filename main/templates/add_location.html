@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert"></div>
+    There was an error with your form ...
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+<br />
+<div class="shadow p-4 mb-5 bg-body rounded">
+<h1>Add a Location</h1>
+<br />
+{% if submitted %}
+You Location was submitted succefully!
+{% else %}
+  <form action="{% url 'add_location' %}" method=POST enctype="multipart/form-data">
+    {% csrf_token %}
+      {{ form.as_p }}
+      <br /><br />
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endif %}
+</div>
+{% endblock %}

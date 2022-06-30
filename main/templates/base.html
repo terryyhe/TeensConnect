@@ -13,7 +13,10 @@
     <div class="container">
         {% if messages %}
           {% for message in messages %}
-          <div class="alert alert-primary" role="alert">{{ message }}</div>
+          <div class="alert alert-primary" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
+          </div>
           {% endfor %}
         {% endif %}
         
