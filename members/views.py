@@ -1,40 +1,46 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import NewUserForm
+from .forms import NewMemberForm
 
-def login_user(request):
+def myprofile(request):
+    pass
+
+def view_member(request, member_id):
+    pass
+
+def login_member(request):
     if request.method != 'POST':
         return render(request, 'authenticate/login.html', {})
 
     username = request.POST['username']
     password = request.POST['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
+    member = authenticate(request, username=username, password=password)
+    if member is not None:
+        login(request, member)
         return redirect('home')
     else:
         messages.success(request, "There was an error login, try again...")
         return redirect('login')
 
-def logout_user(request):
+def logout_member(request):
     logout(request)
     messages.success(request, ("You were logged out"))
     return redirect("home")
 
-def register_user(request):
+def register_member(request):
     if request.method == 'POST':
-        form = NewUserForm(request.POST)
+        form = NewMemberForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data['username']
+            email = form.cleaned_data['email']
             password = form.cleaned_data['password1']
-            user = authenticate(username = username, password = password)
-            login(request, user)
+            member = authenticate(email = email, password = password)
+            login(request, member)
             messages.success(request, ("Registration Successful"))
             return redirect('home')
     else:
-        form = NewUserForm()
+        form = NewMemberForm()
 
-    return render(request, 'authenticate/register_user.html', {'form': form})
+    return render(request, 'authenticate/register_member.html', {'form': form})
     

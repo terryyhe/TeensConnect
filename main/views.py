@@ -52,6 +52,14 @@ def update_event(request, event_id):
         form = EventForm(instance=event)
         return render(request, 'update_event.html', {'form':form, 'event':event})
 
+def view_event(request, event_id):
+    try:
+        event = Event.objects.get(pk = event_id)
+    except:
+        messages.error(request, "You don't have this event")
+        return redirect('list_events')
+    return render(request, 'view_event.html', {'event':event})
+
 @staff_member_required(login_url="/members/login")
 def delete_event(request, event_id):
     event = Event.objects.get(pk = event_id)

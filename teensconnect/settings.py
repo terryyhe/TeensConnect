@@ -53,6 +53,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'teensconnect.urls'
+AUTH_USER_MODEL = 'members.Member'
 
 #        'DIRS': [os.path.join(BASE_DIR, 'templates')],
 

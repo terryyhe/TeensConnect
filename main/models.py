@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import Group
+from members.models import Member
 
 class Location(models.Model):
     name = models.CharField('Location Name', max_length = 120)
@@ -19,7 +20,7 @@ class Event(models.Model):
     location = models.ForeignKey(Location, blank = True, null = True, on_delete = models.CASCADE)
     manager = models.ForeignKey(Group, blank = True, null = True, on_delete= models.SET_NULL)
     description = models.TextField(blank = True)
-    attendees = models.ManyToManyField(User, blank = True, null = True)
+    attendees = models.ManyToManyField(Member, blank = True, null = True)
 
     def __str__(self):
         return self.name

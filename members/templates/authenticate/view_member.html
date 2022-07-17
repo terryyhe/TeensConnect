@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="shadow p-4 mb-5 bg-body rounded">
+  <h1>View member</h1>
+  <br />
+  {{ form.as_p }}
+  <br /><br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+{% endblock %}

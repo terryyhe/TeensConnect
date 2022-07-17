@@ -1,13 +1,12 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
-<h1> Events </h1>
-{% for event in events %}
+<br />
+{% if event %}
 <div class="shadow p-4 mb-5 bg-body rounded">
   <div class="card">
   <div class="card-header">
-    Featured
+    {{ event }}
   </div>
   <div class="card-body">
     <h5 class="card-title">{{ event }}</h5>
@@ -16,6 +15,7 @@
     {% endif %}
     <p class="card-text">{{ event.event_date }}</p>
     <p class="card-text">{{ event.location }}</p>
+    <p class="card-text">{{ event.location.address }}</p>
     {% if event.email_address %}
       <p class="card-text">{{ event.location.email_address }}</p>
     {% endif %}
@@ -25,13 +25,11 @@
     {% if event.description %}
       <p class="card-text">{{ event.description }}</p>
     {% endif %}
-    <a href="{% url 'view_event' event.id %}" class="btn btn-primary" >View</a>
     {% if user.is_authenticated %}
-      <a href="{% url 'update_event' event.id %}" class="btn btn-warning">Update</a>
-      <a href="{% url 'delete_event' event.id %}" class="btn btn-warning" >Delete</a>
+    <a href="{% url 'update_event' event.id %}" class="btn btn-warning">Update</a>
     {% endif %}
   </div>
 </div></div>
-{% endfor %}
-
+</div>
+{% endif %}
 {% endblock %}
