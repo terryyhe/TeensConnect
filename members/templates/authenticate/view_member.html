@@ -4,8 +4,16 @@
 <div class="shadow p-4 mb-5 bg-body rounded">
   <h1>View member</h1>
   <br />
-  {{ form.as_p }}
+  <p class="card-text">{{ member.email }}</p>
+  <p class="card-text">{{ member.firstname }}</p>
+  <p class="card-text">{{ member.lastname }}</p>
+  <p class="card-text">{{ member.phone_number }}</p>
+  {% if member.group %}
+  {% for g in member.group %}
+    <p class="card-text">{{ g }}</p>
+  {% endfor %}
+  {% endif %}
   <br /><br />
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <a href="{% url 'update_member' member.id %}" class="btn btn-primary">Update</a>
 </div>
 {% endblock %}

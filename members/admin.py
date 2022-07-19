@@ -12,7 +12,7 @@ class MemberAdmin(UserAdmin):
     list_display = ('email', 'is_staff', 'is_active',)
     list_filter = ('email', 'is_staff', 'is_active', 'groups',)
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'groups')}),
+        (None, {'fields': ('email', 'password', 'groups', 'phone_number')}),
         ('Permissions', {'fields': ('is_staff', 'is_active')}),
     )
     add_fieldsets = (
@@ -21,7 +21,7 @@ class MemberAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2', 'is_staff', 'is_active', 'groups')}
         ),
     )
-    search_fields = ('email',)
+    search_fields = ('email','firstname', 'lastname')
     ordering = ('email',)
 
 

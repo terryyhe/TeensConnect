@@ -64,6 +64,12 @@
               <li class="dropdown-item">
                 <a class="nav-link" href="{% url 'logout' %}">Logout</a>
               </li>
+              {% if user.is_staff %}
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item">
+                  <a class="nav-link" href="{% url 'list_members' %}">Members</a>
+                </li>
+              {% endif %}
             {% else %}
             <li class="dropdown-item">
               <a class="nav-link" href="{% url 'register_member' %}">Register</a>

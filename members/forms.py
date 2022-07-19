@@ -11,10 +11,15 @@ class MemberCreationForm(UserCreationForm):
 
 
 class MemberChangeForm(UserChangeForm):
-
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-control'}))
+    firstname = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'form-control'}))
+    lastname = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'form-control'}))
+    phone_number = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'form-control'}))
+    
     class Meta:
         model = Member
-        fields = ('email','groups')
+        fields = ('email','groups', 'firstname', 'lastname', 'phone_number', 'is_active')
+
 
 class NewMemberForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class':'form-control'}))
@@ -38,6 +43,7 @@ class NewMemberForm(UserCreationForm):
         member.firstname = self.cleaned_data['firstname']
         member.lastname = self.cleaned_data['lastname']
         member.phone_number = self.cleaned_data['phone_number']
+        member.is_active = False
         
         if commit:
             member.save()
