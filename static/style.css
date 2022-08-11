@@ -1,3 +1,6 @@
 body {
     background: radial-gradient(rgb(212, 76, 189), rgb(168, 158, 134), rgb(87, 145, 216)) repeat left top;
 }
+h1 {
+    color:Blue;
+}

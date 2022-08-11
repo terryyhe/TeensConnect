@@ -1,6 +1,9 @@
 from django import forms
 from django.forms import ModelForm
 from .models import Location, Event
+from django.utils.text import slugify 
+from photologue.models import Photo, Gallery
+from datetime import datetime
 
 class LocationForm(ModelForm):
     class Meta:
@@ -45,3 +48,36 @@ class EventForm(ModelForm):
             'attendees': forms.SelectMultiple(attrs={'class': 'form-control', 'placeholder': 'Attendees'}),
         }
 
+class NewPhotoForm(ModelForm):
+    class Meta:
+        model = Photo
+        #fields = '__all__'
+        fields = ('title', 'caption', 'image', 'crop_from', 'is_public', 'effect')
+        labels = {
+            'title': '',
+            'caption': '',
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'required form-control', 'placeholder': 'Title'}),
+            'caption': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Caption'}),
+            'crop_from': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+    def save(self, commit=True):
+        photo = super(NewPhotoForm, self).save(commit = False)
+        photo.date_added = datetime.now()
+        photo.slug = slugify(photo.title)
+        photo.save()
+        return photo
+
+class NewGalleryForm(ModelForm):
+    class Meta:
+        model = Gallery
+        fields = '__all__'
+        
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'required form-control', 'placeholder': 'Title'}),
+            'slug': forms.TextInput(attrs={'class': 'required form-control', 'placeholder': 'Title Slug'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+        }

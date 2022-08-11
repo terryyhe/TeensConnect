@@ -9,19 +9,19 @@
     <link rel="stylesheet" href="{% static 'style.css' %}">
   </head>
   <body>
-    {% include 'navbar.html' %}
     <div id='ctn' class="container">
-        {% if messages %}
+      {% include 'navbar.html' %}
+      {% if messages %}
           {% for message in messages %}
           <div class="alert alert-primary" role="alert">
             <strong>{{ message }}</strong>
             <button type="button" class="btn-close " data-bs-dismiss="alert"></button>
           </div>
           {% endfor %}
-        {% endif %}
+      {% endif %}
         
-        {% block content %}
-        {% endblock %}
+      {% block content %}
+      {% endblock %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   </body>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="shadow p-4 mb-5 bg-body rounded">
+    <h1>List Gallery</h1>
+    <table class="table table-striped">
+      <thead><tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Images</th>
+        <th class="text-center">Operation</th>
+      </tr></thead>
+      <tbody>
+    {% for gallery in galleries %}
+      <tr>
+      <td>{{ gallery.title }}</td>
+      <td>{{ gallery.description }}</td>
+      <td>
+      {% for photo in gallery.photos.all %}
+        <a href="{{ photo.get_display_url }}"><img src="{{ photo.get_thumbnail_url }}" height="30"></a>
+      {% endfor %}
+      </td>
+      <td class="text-center">
+        <a class="btn btn-default" href="{% url 'update_gallery' gallery.id %}">Update</a>
+      </td>
+      </tr>
+    {% endfor %}
+  </tbody></table>
+</div>
+{% endblock %}

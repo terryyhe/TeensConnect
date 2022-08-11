@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="{% url 'home' %}">TeensConnect</a>
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <img src="/media/photologue/photos/cache/IMG_9834_thumbnail.JPG" height="40">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -31,26 +33,39 @@
             </ul>
           </li>
           {% endif %}
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Resources</a>
-          </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle disabled" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Teams
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Art Group</a></li>
-              <li><a class="dropdown-item" href="#">CS Group</a></li>
-              <li><a class="dropdown-item" href="#">Tutoring Group</a></li>
+              <li><a class="dropdown-item" href="{% url 'team_art' %}">Art Group</a></li>
+              <li><a class="dropdown-item" href="{% url 'team_cs' %}">CS Group</a></li>
+              <li><a class="dropdown-item" href="{% url 'team_tutor' %}">Tutoring Group</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Management Group</a></li>
+              <li><a class="dropdown-item" href="{% url 'team_management' %}">Management Group</a></li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Galleries</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">My Profile</a>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Photos
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li class="dropdown-item">
+                <a class="nav-link" href="{% url 'list_galleries' %}">List Galleries</a>
+              </li>
+              <li class="dropdown-item">
+                <a class="nav-link" href="{% url 'list_photos' %}">List Photos</a>
+              </li>
+              {% if user.is_authenticated and user.is_staff %}
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item">
+                  <a class="nav-link" href="{% url 'add_gallery' %}">Add Gallery</a>
+                </li>
+                <li class="dropdown-item">
+                  <a class="nav-link" href="{% url 'add_photo' %}">Add Photo</a>
+                </li>
+              {% endif %}
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'about' %}">About</a>

@@ -1,12 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib.admin.views.decorators import staff_member_required
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
 from django.contrib import messages
+from photologue.models import Photo, Gallery
 from .models import Event, Location
-from .forms import LocationForm, EventForm
+from .forms import LocationForm, EventForm, NewPhotoForm, NewGalleryForm
 
 def home(request):
     #messages.add_message(request, messages.INFO, 'Hello world.')
@@ -102,3 +104,65 @@ def update_location(request, location_id):
     else:
         form = LocationForm(instance = location)
         return render(request, 'update_location.html', {'location': location, 'form': form})
+
+def list_photos(request):
+    photos = Photo.objects.all()
+    return render(request, 'list_photos.html', {'photos': photos})
+
+@login_required(login_url="/members/login")
+def add_photo(request):
+    if request.POST:
+        form = NewPhotoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'You have added a new photo')
+            return redirect('home')
+    else:
+        form = NewPhotoForm()
+    return render(request, 'add_photo.html', {'form':form})
+
+@login_required(login_url="/members/login")
+def update_photo(request, photo_id):
+    photo = Photo.objects.get(pk = photo_id)
+    form = NewPhotoForm(request.POST or None, request.FILES or None, instance = photo)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "You have successfully updated the photo record")
+        return redirect('photologue:photo-list')
+    return render(request, 'update_photo.html', {'photo': photo, 'form': form})
+
+def list_galleries(request):
+    galleries = Gallery.objects.all()
+    return render(request, 'list_galleries.html', {'galleries': galleries})
+
+@login_required(login_url="/members/login")
+def add_gallery(request):
+    form = NewGalleryForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'You have added a new gallery')
+        return redirect('photologue:gallery-list')
+    return render(request, 'add_gallery.html', {'form':form})
+
+@login_required(login_url="/members/login")
+def update_gallery(request, gallery_id):
+    gallery = Gallery.objects.get(pk = gallery_id)
+    form = NewGalleryForm(request.POST or None, instance = gallery)
+    if form.is_valid():
+        form.save()
+        messages.success(request, "You have successfully updated the gallery record")
+        return redirect('photologue:gallery-list')
+    return render(request, 'update_gallery.html', {'gallery': gallery, 'form': form})
+
+
+def team_art(request):
+    return render(request, 'team_art.html', {})
+
+def team_cs(request):
+    return render(request, 'team_cs.html', {})
+
+def team_tutor(request):
+    return render(request, 'team_tutor.html', {})
+
+def team_management(request):
+    return render(request, 'team_management.html', {})

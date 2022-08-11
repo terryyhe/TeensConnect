@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'main.apps.MainConfig',
     'members.apps.MembersConfig',
+    'photologue',
+    'sortedm2m',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +57,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'teensconnect.urls'
 AUTH_USER_MODEL = 'members.Member'
+SITE_ID = 1
 
 #        'DIRS': [os.path.join(BASE_DIR, 'templates')],
 
