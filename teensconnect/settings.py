@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'main.apps.MainConfig',
+    'widget_tweaks',
     'members.apps.MembersConfig',
     'photologue',
     'sortedm2m',

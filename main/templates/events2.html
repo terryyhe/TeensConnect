@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<h1> Events <a href="https://calendar.google.com/">Calendar</a></h1>
+{% for event in events %}
+<div class="shadow p-4 mb-5 bg-body rounded">
+  <div class="card">
+  <div class="card-body">
+    <h5 class="card-title">{{ event.summary }}</h5>
+    <p class="card-text">Start time: {{ event.start.dateTime }}</p>
+    <p class="card-text">End time: {{ event.end.dateTime }}</p>
+    <p class="card-text">Location: {{ event.location }}</p>
+    <p class="card-text">Organizer:{{ event.organizer.displayName }}</p>
+    {% if event.recurrence %}
+    <p class="card-text">Repeat:{{ event.recurrence }}</p>
+    {% endif %}
+    <p class="card-text" style="display:none">all:{{ event }}</p>
+  </div>
+</div></div>
+{% endfor %}
+
+{% endblock %}

@@ -8,7 +8,8 @@ from datetime import datetime
 from django.contrib import messages
 from photologue.models import Photo, Gallery
 from .models import Event, Location
-from .forms import LocationForm, EventForm, NewPhotoForm, NewGalleryForm
+from .forms import LocationForm, EventForm, NewPhotoForm, NewGalleryForm, NewCalendarForm
+from .calendar_API import getEvents
 
 def home(request):
     #messages.add_message(request, messages.INFO, 'Hello world.')
@@ -29,6 +30,15 @@ def search_bar(request):
 def list_events(request):
     events = Event.objects.all()
     return render(request, 'events.html', {'events':events})
+
+def list_calendar(request):
+    events = getEvents()
+    return render(request, 'events2.html', {'events':events})
+
+def add_calendar(request):
+    form = NewCalendarForm
+    return render(request, 'add_calendar.html', {'form':form})
+
 
 @staff_member_required(login_url="/members/login")
 def add_event(request):
