@@ -23,7 +23,9 @@ def search_bar(request):
         searched = request.POST['searched']
         locations = Location.objects.filter(name__contains = searched)
         events = Event.objects.filter(name__contains = searched)
-        return render(request, 'search_bar.html', {'searched': searched, 'locations': locations, 'events': events})
+        photos = Photo.objects.filter(title__contains = searched)
+        
+        return render(request, 'search_bar.html', {'searched': searched, 'locations': locations, 'events': events, 'photos': photos})
     else:
         return render(request, 'search_bar.html', {})
     

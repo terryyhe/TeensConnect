@@ -16,6 +16,12 @@
                     {{ location }}
                 {% endfor %}
             {% endif %}
+            {% if photos %}
+                <h2>Photos</h2>
+                {% for photo in photos %}
+                    <img src={{ photo.get_display_url }}>
+                {% endfor %}
+            {% endif %}
         {% else %}
         <h1>Hey! You forgot to search</h1>
         {% endif %}
