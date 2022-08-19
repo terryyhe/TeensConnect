@@ -9,11 +9,13 @@ from django.contrib import messages
 from photologue.models import Photo, Gallery
 from .models import Event, Location
 from .forms import LocationForm, EventForm, NewPhotoForm, NewGalleryForm, NewCalendarForm
-from .calendar_API import getEvents
+from .calendar_API import getEvents, getFutureEvents
 
 def home(request):
-    #messages.add_message(request, messages.INFO, 'Hello world.')
-    return render(request, 'home.html', {})
+    photos = Gallery.objects.filter(title = 'Home').first().photos.all()
+    active = photos[0] if photos else None
+    events = getFutureEvents()
+    return render(request, 'home.html', {'photos': photos, 'active': active, 'events': events[:5]})
 
 def about(request):
     return render(request, 'about.html', {})
@@ -34,8 +36,7 @@ def list_events(request):
     return render(request, 'events.html', {'events':events})
 
 def list_calendar(request):
-    events = getEvents()
-    return render(request, 'events2.html', {'events':events})
+    return render(request, 'events2.html', {'events':getFutureEvents()})
 
 def add_calendar(request):
     form = NewCalendarForm

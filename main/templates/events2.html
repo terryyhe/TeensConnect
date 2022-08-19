@@ -8,10 +8,22 @@
   <div class="card">
   <div class="card-body">
     <h5 class="card-title">{{ event.summary }}</h5>
+    {% if 'dateTime' in event.start %}
     <p class="card-text">Start time: {{ event.start.dateTime }}</p>
+    {% elif 'date' in event.start %}
+    <p class="card-text">Start time: {{ event.start.date }}</p>
+    {% endif %}
+    {% if 'dateTime' in event.start %}
     <p class="card-text">End time: {{ event.end.dateTime }}</p>
+    {% elif 'date' in event.start %}
+    <p class="card-text">End time: {{ event.end.date }}</p>
+    {% endif %}
+    {% if event.location %}
     <p class="card-text">Location: {{ event.location }}</p>
+    {% endif %}
+    {% if event.organizer %}
     <p class="card-text">Organizer:{{ event.organizer.displayName }}</p>
+    {% endif %}
     {% if event.recurrence %}
     <p class="card-text">Repeat:{{ event.recurrence }}</p>
     {% endif %}

@@ -1,5 +1,6 @@
 body {
     background-image: url("images/background1.jpeg");
+    background-size: cover;
 }
 h1 {
     color:Blue;

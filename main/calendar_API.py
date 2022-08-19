@@ -2,6 +2,7 @@ from decouple import config
 from google.oauth2 import service_account
 import googleapiclient.discovery
 import datetime
+import pytz
 
 #CAL_ID = 'stq3blrn94u6g3b86pj1jotu48@group.calendar.google.com'
 CAL_ID = config('CAL_ID')
@@ -14,6 +15,23 @@ def getEvents():
 
     events_result = service.events().list(calendarId=CAL_ID, maxResults=2500).execute()
     events = events_result.get('items', [])
+    return events
+
+def getFutureEvents():
+    all_events = getEvents()
+    events = []
+    now = pytz.UTC.localize(datetime.datetime.now())
+
+    for event in all_events:
+        if 'start' in event:
+            if 'dateTime' in event['start']:
+                if datetime.datetime.strptime(event['start']['dateTime'],'%Y-%m-%dT%H:%M:%S%z') > now \
+                        or 'recurrence' in event:
+                    events.append(event)
+            elif 'date' in event['start']:
+                if datetime.datetime.strptime(event['start']['date']+'-07:00','%Y-%m-%d%z') > now \
+                        or 'recurrence' in event:
+                    events.append(event)
     return events
 
 def test_calendar():

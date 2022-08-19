@@ -3,6 +3,57 @@
 
 {% block content %}
 <h1>Homepage</h1>
-
+<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for photo in photos %}
+        {% if photo == active %}
+        <div class="carousel-item active" data-bs-interval="10000">
+        {% else %}
+        <div class="carousel-item" data-bs-interval="10000">
+        {% endif %}
+            <a href="{{ photo.get_original_watermark_url }}"><img src="{{ photo.get_disp_400_200_url }}" class="center-block w-100 h-50" alt="image"></a>
+        </div>
+      {% endfor %}
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  {% if events %}
+  <h1>Future Events</h1>
+  {% for event in events %}
+  <div class="shadow p-4 mb-5 bg-body rounded">
+    <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ event.summary }}</h5>
+      {% if 'dateTime' in event.start %}
+      <p class="card-text">Start time: {{ event.start.dateTime }}</p>
+      {% elif 'date' in event.start %}
+      <p class="card-text">Start time: {{ event.start.date }}</p>
+      {% endif %}
+      {% if 'dateTime' in event.start %}
+      <p class="card-text">End time: {{ event.end.dateTime }}</p>
+      {% elif 'date' in event.start %}
+      <p class="card-text">End time: {{ event.end.date }}</p>
+      {% endif %}
+      {% if event.location %}
+      <p class="card-text">Location: {{ event.location }}</p>
+      {% endif %}
+      {% if event.organizer %}
+      <p class="card-text">Organizer:{{ event.organizer.displayName }}</p>
+      {% endif %}
+      {% if event.recurrence %}
+      <p class="card-text">Repeat:{{ event.recurrence }}</p>
+      {% endif %}
+      <p class="card-text" style="display:none">all:{{ event }}</p>
+    </div>
+  </div></div>
+  {% endfor %}
+  {% endif %}
 
 {% endblock %}
