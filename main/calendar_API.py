@@ -4,7 +4,6 @@ import googleapiclient.discovery
 import datetime
 import pytz
 
-#CAL_ID = 'stq3blrn94u6g3b86pj1jotu48@group.calendar.google.com'
 CAL_ID = config('CAL_ID')
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 SERVICE_ACCOUNT_FILE = './teensconnect-credentials.json'

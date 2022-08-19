@@ -1,12 +1,10 @@
 # TeenConnect
 
-please install pcakages in REQUIREMENTS.txt
+Please install pcakages in REQUIREMENTS.txt
 
-or
+For Google calendar, we need to following the guidance to create service account:
+https://developers.google.com/identity/protocols/oauth2/service-account
 
-pip install django
-pip install Pillow
-pip install pytz
-pip install django-photologue
-pip install sortedm2m
-pip install django-taggit
+Create a local environment file .env, put the CAL_ID from Google service account in it.
+
+Also, create a .gitignore file to stop github to upload this .env file.
