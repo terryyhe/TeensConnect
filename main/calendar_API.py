@@ -6,7 +6,7 @@ import pytz
 
 CAL_ID = config('CAL_ID')
 SCOPES = ['https://www.googleapis.com/auth/calendar']
-SERVICE_ACCOUNT_FILE = './teensconnect-website.json'
+SERVICE_ACCOUNT_FILE = './.teensconnect-website.json'
 
 def getEvents():
     credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
