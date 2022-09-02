@@ -172,7 +172,9 @@ def team_art(request):
     return render(request, 'team_art.html', {})
 
 def team_cs(request):
-    return render(request, 'team_cs.html', {})
+    photos = Gallery.objects.filter(title = 'Home').first().photos.all()
+    active = photos[0] if photos else None
+    return render(request, 'team_cs.html', {'photos': photos, 'active': active})
 
 def team_tutor(request):
     return render(request, 'team_tutor.html', {})
