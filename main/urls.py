@@ -25,6 +25,6 @@ urlpatterns = [
     path('update_photo/<int:photo_id>', views.update_photo, name='update_photo'),
     path('team-art', views.team_art, name='team_art'),
     path('team-cs', views.team_cs, name='team_cs'),
-    path('team-totor', views.team_tutor, name='team_tutor'),
+    path('team-tutor', views.team_tutor, name='team_tutor'),
     path('team-man', views.team_management, name='team_management')
 ]
